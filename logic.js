@@ -6,15 +6,15 @@ $(function() {
 
   // clear input/output with AC button
   $(".clear").click(function() {
-    $(".calculator__display").text( "Clear!" );
+    $(".calculator__display").text( "clear" );
     console.log(`display cleared ${expression}`);
     expression = [];
   });
 
   $(".key--operand, .key--operator").click((event) => {
     let value = $(event.target).text();
-    if(value === "x") { value = "*"; }
-    if(value === "÷") { value = "/"; }     
+    if(value === "x") { value = "*"; };
+    if(value === "÷") { value = "/"; }; 
     console.log(`clicking button! ${value}`);
     expression.push(value);
     let displayNum = expression.join("");

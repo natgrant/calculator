@@ -27,8 +27,9 @@ html {
 }
 
 body {
-  align-items: center;
-  background-color: #f7dbd4;
+  align-items: center; 
+  background-image: url("../images/bg.jpg");
+  /* background-color: #f7dbd4; */
   display: flex;
   height: 100vh;
   justify-content: center;
@@ -71,8 +72,12 @@ body {
 }
 
 .key--equal {
-  background-image: linear-gradient(to bottom, #99cc99, #66b266);
+  background-image: linear-gradient(to bottom, #99cc99, #66b);
   grid-column: -2;
   grid-row: 2 / span 4;
+}
+
+.fa-heart {
+  font-size: .5rem;
 }
  
