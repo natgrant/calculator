@@ -6,14 +6,10 @@ $(function() {
 
   // clear input/output with AC button
   $(".clear").click(function() {
-    $(".calculator__display").text( "!" );
+    $(".calculator__display").text( "Clear!" );
     console.log(`display cleared ${expression}`);
     expression = [];
   });
-
-  // decimal should append to current display 
-  // two . in one number should not be possible
-
 
   $(".key--operand, .key--operator").click((event) => {
     let value = $(event.target).text();
@@ -21,7 +17,8 @@ $(function() {
     if(value === "÷") { value = "/"; }     
     console.log(`clicking button! ${value}`);
     expression.push(value);
-    updateDisplay(value);
+    let displayNum = expression.join("");
+    updateDisplay(displayNum);
   })
 
   $(".key--equal").click((event) => {
@@ -30,7 +27,7 @@ $(function() {
     }
     
     else {
-      let resultString = expression.join(" ");
+      let resultString = expression.join("");
       console.log(`resultString => ${resultString}`);
 
       let expressionResult = math.eval(resultString);
