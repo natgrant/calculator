@@ -4,9 +4,21 @@ $(function() {
 
   var expression = [];
 
+  // clear input/output with AC button
+  $(".clear").click(function() {
+    $(".calculator__display").text( "!" );
+    console.log(`display cleared ${expression}`);
+    expression = [];
+  });
+
+  // decimal should append to current display 
+  // two . in one number should not be possible
+
+
   $(".key--operand, .key--operator").click((event) => {
     let value = $(event.target).text();
     if(value === "x") { value = "*"; }
+    if(value === "÷") { value = "/"; }     
     console.log(`clicking button! ${value}`);
     expression.push(value);
     updateDisplay(value);
@@ -16,6 +28,7 @@ $(function() {
     if(expression.length === 0) {
       // do nothing
     }
+    
     else {
       let resultString = expression.join(" ");
       console.log(`resultString => ${resultString}`);
