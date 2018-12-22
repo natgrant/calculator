@@ -1,5 +1,3 @@
-
-
 $(function() {
   const operators = {
     "x" : "*",
@@ -16,10 +14,8 @@ $(function() {
   var functionExpression = [];
   var lastInput = null;
 
-  // clear input/output with AC button
-  $(".clear").click(() => {
-    reset(true);
-  });
+  // Reset the calculator with AC button
+  $(".clear").click(() => reset(true));
 
   $expressionInputs.click((event) => {
     let currentInput = $(event.target).text();
@@ -29,16 +25,13 @@ $(function() {
       currentInput = operators[currentInput];
 
       if(lastInput === "operator") {
-        if(functionExpression[functionExpression.length -1] === currentInput) {
+        if(functionExpression[functionExpression.length -1] !== currentInput) {
           // error condition - 2 different operators have been pressed sequentially
           // reset the functionExpression, display an error
-          return;
-        }
-        else {
           updateDisplay("invalid input");
           reset(false);
-          return;
         }
+        return;
       }
       lastInput = "operator";
     }
@@ -47,15 +40,15 @@ $(function() {
     }
 
     console.log(`clicking button! ${currentInput}`);
-    
+    // add the input to the end of our functionExpression array
     functionExpression.push(currentInput);
+    // build display string by joining the array contents
     let displayValue = functionExpression.join("");
-
     updateDisplay(displayValue);
   })
 
   $equalsKey.click((event) => {
-    if(functionExpression.length === 0) { return; }
+    if(functionExpression.length === 0) return;
 
     let resultString = functionExpression.join("");
     console.log(`resultString => ${resultString}`);
@@ -67,10 +60,7 @@ $(function() {
     reset(false);
   });
 
-  updateDisplay = (value) => {
-    console.log(`updating display with ${value}`);
-    $display.text(value);
-  }
+  updateDisplay = (value) => $display.text(value);
 
   reset = (clearScreenText) => {
     if(clearScreenText) {
