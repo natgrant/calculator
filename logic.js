@@ -1,8 +1,6 @@
 
 
 $(function() {
-  var functionExpression = [];
-  
   const operators = {
     "x" : "*",
     "÷" : "/",
@@ -10,21 +8,22 @@ $(function() {
     "-" : "-",
   }
 
+  // selectors
+  const $display = $(".calculator__display");
+  const $equalsKey = $(".key--equal");
+  const $expressionInputs = $(".key--operand, .key--operator");
 
+  var functionExpression = [];
   var lastInput = null;
 
   // clear input/output with AC button
-  $(".clear").click(function() {
+  $(".clear").click(() => {
     reset(true);
   });
 
-  $(".key--operand, .key--operator").click((event) => {
+  $expressionInputs.click((event) => {
     let currentInput = $(event.target).text();
-
-    // TODO: perform operator mapping using 'operators' object
-    // if(value === "x") { value = "*"; };
-    // if(value === "÷") { value = "/"; };
-
+    
     // if the current input is an operator
     if(Object.keys(operators).includes(currentInput)) {
       currentInput = operators[currentInput];
@@ -49,46 +48,36 @@ $(function() {
 
     console.log(`clicking button! ${currentInput}`);
     
-    
     functionExpression.push(currentInput);
-    let displayNum = functionExpression.join("");
-    updateDisplay(displayNum);
-    
+    let displayValue = functionExpression.join("");
+
+    updateDisplay(displayValue);
   })
 
-  // duplicate values not allowed
+  $equalsKey.click((event) => {
+    if(functionExpression.length === 0) { return; }
 
-  $(".key--equal").click((event) => {
-    if(functionExpression.length === 0) {
-      // do nothing
-    }
-    
-    else {
-      let resultString = functionExpression.join("");
-      console.log(`resultString => ${resultString}`);
+    let resultString = functionExpression.join("");
+    console.log(`resultString => ${resultString}`);
 
-      let functionExpressionResult = math.eval(resultString);
-      console.log(`the result is: ${functionExpressionResult}`);
- 
-      updateDisplay(functionExpressionResult);
-      reset(false);
-    }
+    let functionExpressionResult = math.eval(resultString);
+    console.log(`the result is: ${functionExpressionResult}`);
+
+    updateDisplay(functionExpressionResult);
+    reset(false);
   });
 
-  function updateDisplay(value) {
+  updateDisplay = (value) => {
     console.log(`updating display with ${value}`);
-    $(".calculator__display").text(value);
+    $display.text(value);
   }
 
-  function reset(clearScreenText) {
+  reset = (clearScreenText) => {
     if(clearScreenText) {
-      $(".calculator__display").text( "0" );
+      $display.text("0");
       console.log(`display cleared, last functionExpression: ${functionExpression}`);
     }
     lastInput = null;
     functionExpression = [];
   }
-   
 });
-
-
