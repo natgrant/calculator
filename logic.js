@@ -3,9 +3,11 @@
 $(function() {
   var functionExpression = [];
   
-  const mappableOperators = {
+  const operators = {
     "x" : "*",
-    "÷" : "/"
+    "÷" : "/",
+    "+" : "+",
+    "-" : "-",
   }
 
 
@@ -24,8 +26,8 @@ $(function() {
     // if(value === "÷") { value = "/"; };
 
     // if the current input is an operator
-    if(Object.keys(mappableOperators).includes(currentInput)) {
-      currentInput = mappableOperators[currentInput];
+    if(Object.keys(operators).includes(currentInput)) {
+      currentInput = operators[currentInput];
 
       if(lastInput === "operator") {
         if(functionExpression[functionExpression.length -1] === currentInput) {
@@ -34,7 +36,8 @@ $(function() {
           return;
         }
         else {
-          updateDisplay("ERROR: invalid input");
+          updateDisplay("invalid input");
+          reset(false);
           return;
         }
       }
@@ -79,7 +82,7 @@ $(function() {
 
   function reset(clearScreenText) {
     if(clearScreenText) {
-      $(".calculator__display").text( "clear" );
+      $(".calculator__display").text( "0" );
       console.log(`display cleared, last functionExpression: ${functionExpression}`);
     }
     lastInput = null;
